@@ -4,7 +4,8 @@ import { UpdateBookDto } from './dto/update-book.dto';
 
 @Injectable()
 export class BookService {
-  create(_CreateBookDto: CreateBookDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(createBookDto: CreateBookDto) {
     return 'This action add new book';
   }
 
@@ -16,7 +17,8 @@ export class BookService {
     return `This action returns a #${id} book`;
   }
 
-  update(id: number, UpdateBookDto: UpdateBookDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, updateBookDto: UpdateBookDto) {
     return `This action updates a #${id} book`;
   }
 

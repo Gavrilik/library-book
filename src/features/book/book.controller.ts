@@ -18,8 +18,8 @@ export class BookController {
   constructor(private readonly bookServise: BookService) {}
 
   @Post()
-  create(@Body() CreateBookDto: CreateBookDto) {
-    return this.bookServise.create(CreateBookDto);
+  create(@Body() createBookDto: CreateBookDto) {
+    return this.bookServise.create(createBookDto);
   }
 
   @Get()
@@ -33,8 +33,8 @@ export class BookController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() UpdateBookDto: UpdateBookDto) {
-    return this.bookServise.update(+id, UpdateBookDto);
+  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
+    return this.bookServise.update(+id, updateBookDto);
   }
 
   @Delete(':id')
