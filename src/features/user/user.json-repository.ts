@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
+import console from 'console';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import users from './user.json';//массив, работа с массивом 
-
+import defaulteUsers from './user.json'; //массив, работа с массивом
+let users = defaulteUsers;
 @Injectable()
 export class UserJsonRepository {
- 
   create(createUserDto: CreateUserDto) {
-   users.push(createUserDto);
-   return this.findAll()
+    users.push(createUserDto);
+    return this.findAll();
   }
 
   findAll() {
@@ -17,25 +17,26 @@ export class UserJsonRepository {
   }
 
   findOne(id: number) {
-    const user =users.find(user => user.id===id)
+    const condition = (u: CreateUserDto) => u.id === id;
+    // передача условый разными способами
+    const user = users.find(condition);
+    //const user2 = users.find((user) => user.id === id) //правильный пример
+    //const user3 = users.find(user => condition(user))
     return user;
-    //return users [`${id}`];
-    //return this.findOne(id);
-    
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-//const user = users.filter()
-
-            //const user =  users.filter(user => user.id===id) //обновляет всем id 
-            //return user; 
-        }
+    users = users.map((user) => {
+      if (user.id === id) {
+        return { ...user, ...updateUserDto };   //Object.assign прочитать????
+      }
+      return user;
+    });
+    return this.findOne(id);
+  }
 
   remove(id: number) {
-    const user =  users.filter(user => user.id!==id)
-    return user; 
-    //const user = users.splice(1,6); //filter
-    //return user;
+    const user = users.filter((user) => user.id !== id);
+    return user;
   }
 }
-
