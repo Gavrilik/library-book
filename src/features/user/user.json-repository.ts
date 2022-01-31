@@ -1,15 +1,24 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
-import console from 'console';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+//import { User } from './entities/user.entity';
 import defaulteUsers from './user.json'; //массив, работа с массивом
 let users = defaulteUsers;
 @Injectable()
 export class UserJsonRepository {
   create(createUserDto: CreateUserDto) {
+    const isExsistingUser = users.some((user) => user.id === createUserDto.id);
+    if (isExsistingUser) {
+      throw new ConflictException('same id');
+    }
     users.push(createUserDto);
-    return this.findAll();
+    return users;
   }
 
   findAll() {
@@ -17,9 +26,12 @@ export class UserJsonRepository {
   }
 
   findOne(id: number) {
-    const condition = (u: CreateUserDto) => u.id === id;
+    const condition = (u: CreateUserDto) => u.id === id; // лямда функция с условием для поиска
     // передача условый разными способами
     const user = users.find(condition);
+    if (!user) {
+      throw new NotFoundException(`user not found!, ${id}`);
+    }
     //const user2 = users.find((user) => user.id === id) //правильный пример
     //const user3 = users.find(user => condition(user))
     return user;
@@ -28,15 +40,17 @@ export class UserJsonRepository {
   update(id: number, updateUserDto: UpdateUserDto) {
     users = users.map((user) => {
       if (user.id === id) {
-        return { ...user, ...updateUserDto };   //Object.assign прочитать????
+        return { ...user, ...updateUserDto }; //...(оператор spread ипользуется для слияние объектов)
       }
       return user;
     });
-    return this.findOne(id);
+    throw new NotFoundException(this.findOne(id));
   }
 
   remove(id: number) {
-    const user = users.filter((user) => user.id !== id);
-    return user;
+    this.findOne(id); // проверка на наличие пользователя
+    const condition = (user) => user.id !== id; // условие для операции filter
+    const filteredUsers = users.filter(condition);
+    return (users = filteredUsers);
   }
 }

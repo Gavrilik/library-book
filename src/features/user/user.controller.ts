@@ -17,7 +17,7 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    console.log('createUserDto', createUserDto); //вывод в консоль createUserDto
+    //console.log('createUserDto', createUserDto); //вывод в консоль createUserDto
     return this.userService.create(createUserDto);
   }
 
