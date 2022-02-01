@@ -6,6 +6,5 @@ import { BookJsonRepository } from './book.json-repository';
 @Module({
   controllers: [BookController],
   providers: [BookService, BookJsonRepository],
-  exports: [BookService],
 })
 export class BookModule {}

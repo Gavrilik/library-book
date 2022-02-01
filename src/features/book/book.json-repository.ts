@@ -17,6 +17,7 @@ export class BookJsonRepository {
     books.push(createBookDto);
     return books;
   }
+
   findAll() {
     return books;
   }
@@ -29,6 +30,7 @@ export class BookJsonRepository {
     }
     return book;
   }
+
   update(id: number, updateBookDto: UpdateBookDto) {
     books = books.map((book) => {
       if (book.id === id) {
@@ -37,6 +39,7 @@ export class BookJsonRepository {
       return this.findOne(id);
     });
   }
+
   remove(id: number) {
     this.findOne(id);
     const condition = (book) => book.id !== id;
