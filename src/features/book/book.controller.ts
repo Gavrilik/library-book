@@ -42,4 +42,5 @@ export class BookController {
   remove(@Param('id') id: string) {
     return this.bookServise.remove(+id);
   }
+  // eslint-disable-next-line prettier/prettier
 }
