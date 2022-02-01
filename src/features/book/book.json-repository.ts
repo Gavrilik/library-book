@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import defaulteBooks from './book.json'; //массив, работа с массивом
@@ -42,6 +41,7 @@ export class BookJsonRepository {
     this.findOne(id);
     const condition = (book) => book.id !== id;
     const filteredBooks = books.filter(condition);
-    return (books = filteredBooks);
+    books = filteredBooks;
+    return books;
   }
 }
