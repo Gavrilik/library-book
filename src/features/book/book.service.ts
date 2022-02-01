@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { BookJsonRepository } from './book.json-repository';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -7,7 +6,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 @Injectable()
 export class BookService {
   constructor(private readonly bookJsonRepository: BookJsonRepository) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   create(createBookDto: CreateBookDto) {
     return this.bookJsonRepository.create(createBookDto); //результат вызова bookJsonRepository
   }
@@ -20,7 +19,6 @@ export class BookService {
     return this.bookJsonRepository.findOne(id);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(id: number, updateBookDto: UpdateBookDto) {
     return this.bookJsonRepository.update(+id, updateBookDto);
   }
