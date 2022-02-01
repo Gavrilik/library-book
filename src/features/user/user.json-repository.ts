@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-//import { User } from './entities/user.entity';
 import defaulteUsers from './user.json'; //массив, работа с массивом
 let users = defaulteUsers;
 @Injectable()
