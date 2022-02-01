@@ -37,7 +37,6 @@ export class BookJsonRepository {
       }
       return this.findOne(id);
     });
-   // throw new NotFoundException(this.findOne(id));
   }
   remove(id: number) {
     this.findOne(id);
