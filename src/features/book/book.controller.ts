@@ -1,11 +1,12 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,7 +33,7 @@ export class BookController {
     return this.bookServise.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.bookServise.update(+id, updateBookDto);
   }
@@ -41,4 +42,5 @@ export class BookController {
   remove(@Param('id') id: string) {
     return this.bookServise.remove(+id);
   }
+  // eslint-disable-next-line prettier/prettier
 }
