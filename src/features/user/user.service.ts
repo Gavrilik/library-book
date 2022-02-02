@@ -24,6 +24,7 @@ export class UserService {
   remove(id: number) {
     return this.userJsonRepository.remove(id);
   }
+
   findByEmail(email: string) {
     return this.userJsonRepository.findByEmail(email);
   }

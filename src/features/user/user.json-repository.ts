@@ -51,6 +51,7 @@ export class UserJsonRepository {
     const filteredUsers = users.filter(condition);
     return (users = filteredUsers);
   }
+
   findByEmail(email: string) {
     return users.find((user) => user.email === email);
   }
