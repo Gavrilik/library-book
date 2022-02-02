@@ -11,7 +11,7 @@ let users = defaulteUsers;
 export class UserJsonRepository {
   // реализовать метод
   FindByEmail(email: string) {
-    throw new Error('Method not implemented.');
+    return users.find((user) => user.email === email);
   }
   create(createUserDto: CreateUserDto) {
     const isExsistingUser = users.some((user) => user.id === createUserDto.id);
