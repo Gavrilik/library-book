@@ -9,9 +9,6 @@ import defaulteUsers from './user.json'; //массив, работа с мас�
 let users = defaulteUsers;
 @Injectable()
 export class UserJsonRepository {
-  findByEmail(email: string) {
-    return users.find((user) => user.email === email);
-  }
   create(createUserDto: CreateUserDto) {
     const isExsistingUser = users.some((user) => user.id === createUserDto.id);
     if (isExsistingUser) {
@@ -53,5 +50,8 @@ export class UserJsonRepository {
     const condition = (user) => user.id !== id; // условие для операции filter
     const filteredUsers = users.filter(condition);
     return (users = filteredUsers);
+  }
+  findByEmail(email: string) {
+    return users.find((user) => user.email === email);
   }
 }

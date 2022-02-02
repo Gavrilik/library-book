@@ -4,9 +4,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserJsonRepository } from './user.json-repository';
 @Injectable()
 export class UserService {
-  findByEmail(email: string) {
-    return this.userJsonRepository.findByEmail(email);
-  }
   constructor(private readonly userJsonRepository: UserJsonRepository) {}
   create(createUserDto: CreateUserDto) {
     return this.userJsonRepository.create(createUserDto); //результат вызова userJsonRepository
@@ -26,5 +23,8 @@ export class UserService {
 
   remove(id: number) {
     return this.userJsonRepository.remove(id);
+  }
+  findByEmail(email: string) {
+    return this.userJsonRepository.findByEmail(email);
   }
 }
