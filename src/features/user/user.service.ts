@@ -5,7 +5,7 @@ import { UserJsonRepository } from './user.json-repository';
 @Injectable()
 export class UserService {
   findByEmail(email: string) {
-    return this.userJsonRepository.FindByEmail(email);
+    return this.userJsonRepository.findByEmail(email);
   }
   constructor(private readonly userJsonRepository: UserJsonRepository) {}
   create(createUserDto: CreateUserDto) {
@@ -26,8 +26,5 @@ export class UserService {
 
   remove(id: number) {
     return this.userJsonRepository.remove(id);
-  }
-  FindByEmail(email: string) {
-    return this.userJsonRepository.FindByEmail(email);
   }
 }

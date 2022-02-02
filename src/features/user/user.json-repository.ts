@@ -9,8 +9,7 @@ import defaulteUsers from './user.json'; //массив, работа с мас�
 let users = defaulteUsers;
 @Injectable()
 export class UserJsonRepository {
-  // реализовать метод
-  FindByEmail(email: string) {
+  findByEmail(email: string) {
     return users.find((user) => user.email === email);
   }
   create(createUserDto: CreateUserDto) {
@@ -39,13 +38,14 @@ export class UserJsonRepository {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
+    //...(оператор spread ипользуется для слияние объектов)
+    this.findOne(id);
     users = users.map((user) => {
       if (user.id === id) {
-        return { ...user, ...updateUserDto }; //...(оператор spread ипользуется для слияние объектов)
+        return { ...user, ...updateUserDto };
       }
-      return user;
+      return user; //Вывести в постман пользвователя!
     });
-    throw new NotFoundException(this.findOne(id));
   }
 
   remove(id: number) {
