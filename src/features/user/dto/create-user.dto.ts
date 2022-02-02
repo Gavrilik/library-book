@@ -13,4 +13,6 @@ export class CreateUserDto {
   phoneNumber: number;
   @IsInt()
   age: number;
+  @IsString()
+  password: string;
 }

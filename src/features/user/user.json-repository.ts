@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable prettier/prettier */
 import {
   ConflictException,
   Injectable,
@@ -11,6 +9,10 @@ import defaulteUsers from './user.json'; //массив, работа с мас�
 let users = defaulteUsers;
 @Injectable()
 export class UserJsonRepository {
+  // реализовать метод
+  FindByEmail(email: string) {
+    throw new Error('Method not implemented.');
+  }
   create(createUserDto: CreateUserDto) {
     const isExsistingUser = users.some((user) => user.id === createUserDto.id);
     if (isExsistingUser) {
