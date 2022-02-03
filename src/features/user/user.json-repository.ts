@@ -41,7 +41,7 @@ export class UserJsonRepository {
       if (user.id === id) {
         return { ...user, ...updateUserDto };
       }
-      return user; //Вывести в постман пользвователя!
+      return user;
     });
   }
 
