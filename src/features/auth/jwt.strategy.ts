@@ -18,10 +18,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
+    //вернет авторизированного пользователя с id и username
     /*Passport сначала проверяет подпись JWT и декодирует JSON. 
     Затем он вызывает наш validate()метод, передающий декодированный JSON 
     в качестве единственного параметра */
-    return { userId: payload.sub, username: payload.username };
+    return { payload: payload.sub, email: payload.username };
 
     //возвращаем объект, содержащий userId и username характеристики
   }

@@ -4,7 +4,7 @@ import { LocalAuthGuard } from './local.auth.guard';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
-export class AppController {
+export class AuthController {
   constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
@@ -16,6 +16,7 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
+    console.log('called profile');
     return req.user;
   }
 }
