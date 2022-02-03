@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { BookJsonRepository } from './book.json-repository';
 import { CreateBookDto } from './dto/create-book.dto';

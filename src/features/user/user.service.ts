@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 import { UserJsonRepository } from './user.json-repository';
 @Injectable()
 export class UserService {
@@ -24,5 +23,9 @@ export class UserService {
 
   remove(id: number) {
     return this.userJsonRepository.remove(id);
+  }
+
+  findByEmail(email: string) {
+    return this.userJsonRepository.findByEmail(email);
   }
 }

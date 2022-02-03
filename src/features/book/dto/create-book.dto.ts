@@ -9,4 +9,4 @@ export class CreateBookDto {
   autor: string;
   @IsString()
   tags: string;
-
+}

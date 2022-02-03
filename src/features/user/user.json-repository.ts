@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable prettier/prettier */
 import {
   ConflictException,
   Injectable,
@@ -37,13 +35,14 @@ export class UserJsonRepository {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
+    //...(оператор spread ипользуется для слияние объектов)
+    this.findOne(id);
     users = users.map((user) => {
       if (user.id === id) {
-        return { ...user, ...updateUserDto }; //...(оператор spread ипользуется для слияние объектов)
+        return { ...user, ...updateUserDto };
       }
       return user;
     });
-    throw new NotFoundException(this.findOne(id));
   }
 
   remove(id: number) {
@@ -51,5 +50,9 @@ export class UserJsonRepository {
     const condition = (user) => user.id !== id; // условие для операции filter
     const filteredUsers = users.filter(condition);
     return (users = filteredUsers);
+  }
+
+  findByEmail(email: string) {
+    return users.find((user) => user.email === email);
   }
 }
