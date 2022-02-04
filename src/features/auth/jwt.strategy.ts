@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     /*Passport сначала проверяет подпись JWT и декодирует JSON. 
     Затем он вызывает наш validate()метод, передающий декодированный JSON 
     в качестве единственного параметра */
-    return { payload: payload.sub, email: payload.username };
+    return { email: payload.sub, user: payload.user };
 
     //возвращаем объект, содержащий userId и username характеристики
   }
