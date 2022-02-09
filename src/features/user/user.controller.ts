@@ -18,7 +18,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createUserDto: CreateUserDto): Promise<any> {
     //console.log('createUserDto', createUserDto); //вывод в консоль createUserDto
     return this.userService.create(createUserDto);
@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('jwt'))
   update(
     @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -44,7 +44,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: number): Promise<any> {
     return this.userService.remove(+id);
   }

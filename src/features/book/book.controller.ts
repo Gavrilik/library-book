@@ -17,30 +17,33 @@ export class BookController {
   constructor(private readonly bookServise: BookService) {}
 
   @Post()
-  @UseGuards(AuthGuard('local'))
-  create(@Body() createBookDto: CreateBookDto) {
+  @UseGuards(AuthGuard('jwt'))
+  create(@Body() createBookDto: CreateBookDto): Promise<any> {
     return this.bookServise.create(createBookDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<any> {
     return this.bookServise.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<any> {
     return this.bookServise.findOne(+id);
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard('local'))
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto): void {
+  @UseGuards(AuthGuard('jwt'))
+  update(
+    @Param('id') id: string,
+    @Body() updateBookDto: UpdateBookDto,
+  ): Promise<void> {
     return this.bookServise.update(+id, updateBookDto);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard('local'))
-  remove(@Param('id') id: string) {
+  @UseGuards(AuthGuard('jwt'))
+  remove(@Param('id') id: string): Promise<any> {
     return this.bookServise.remove(+id);
   }
 }

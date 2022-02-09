@@ -7,23 +7,23 @@ import { UpdateBookDto } from './dto/update-book.dto';
 export class BookService {
   constructor(private readonly bookJsonRepository: BookJsonRepository) {}
 
-  create(createBookDto: CreateBookDto) {
+  create(createBookDto: CreateBookDto): Promise<any> {
     return this.bookJsonRepository.create(createBookDto); //результат вызова bookJsonRepository
   }
 
-  findAll() {
+  findAll(): Promise<any> {
     return this.bookJsonRepository.findAll();
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<any> {
     return this.bookJsonRepository.findOne(id);
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
+  update(id: number, updateBookDto: UpdateBookDto): Promise<any> {
     return this.bookJsonRepository.update(+id, updateBookDto);
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<any> {
     return this.bookJsonRepository.remove(id);
   }
 }
