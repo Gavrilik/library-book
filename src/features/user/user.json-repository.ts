@@ -38,10 +38,10 @@ export class UserJsonRepository {
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return new Promise((resolve, reject) => {
-      reject(this.findOne(id));
-      users.map((user) => {
+      this.findOne(id);
+      users = users.map((user) => {
         if (user.id === id) {
-          resolve({ ...user, ...updateUserDto });
+          return { ...user, ...updateUserDto };
         }
         resolve(user);
       });
@@ -53,12 +53,17 @@ export class UserJsonRepository {
       this.findOne(id);
       const condition = (user) => user.id !== id;
       const filteredUsers = users.filter(condition);
-      resolve((users = filteredUsers));
+      users = filteredUsers;
+      resolve(users);
     });
   }
 
   findByEmail(email: string) {
     return new Promise((resolve, reject) => {
+      const user = users.find((user) => user.email === email);
+      if (!user) {
+        reject(new NotFoundException(`email not found!, ${email}`));
+      }
       resolve(users.find((user) => user.email === email));
     });
   }
