@@ -19,18 +19,18 @@ export class UserController {
 
   @Post()
   @UseGuards(AuthGuard('local'))
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): Promise<any> {
     //console.log('createUserDto', createUserDto); //вывод в консоль createUserDto
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<any> {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: number): Promise<any> {
     return this.userService.findOne(+id);
   }
 

@@ -5,15 +5,15 @@ import { UserJsonRepository } from './user.json-repository';
 @Injectable()
 export class UserService {
   constructor(private readonly userJsonRepository: UserJsonRepository) {}
-  create(createUserDto: CreateUserDto) {
+  create(createUserDto: CreateUserDto): Promise<any> {
     return this.userJsonRepository.create(createUserDto); //результат вызова userJsonRepository
   }
 
-  findAll() {
+  findAll(): Promise<any> {
     return this.userJsonRepository.findAll();
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<any> {
     return this.userJsonRepository.findOne(id);
   }
 

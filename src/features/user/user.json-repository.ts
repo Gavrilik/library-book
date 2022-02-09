@@ -10,28 +10,31 @@ let users = defaulteUsers;
 @Injectable()
 export class UserJsonRepository {
   create(createUserDto: CreateUserDto) {
-    const isExsistingUser = users.some((user) => user.id === createUserDto.id);
-    if (isExsistingUser) {
-      throw new ConflictException('same id');
-    }
-    users.push(createUserDto);
-    return users;
+    return new Promise((resolve, reject) => {
+      const existingUser = users.some((user) => user.id === createUserDto.id);
+      if (existingUser) {
+        reject(new ConflictException('same id'));
+      }
+      users.push(createUserDto);
+      resolve(users);
+    });
   }
 
   findAll() {
-    return users;
+    return new Promise((resolve, reject) => {
+      resolve(users as CreateUserDto[]);
+    });
   }
 
   findOne(id: number) {
-    const condition = (u: CreateUserDto) => u.id === id; // лямда функция с условием для поиска
-    // передача условый разными способами
-    const user = users.find(condition);
-    if (!user) {
-      throw new NotFoundException(`user not found!, ${id}`);
-    }
-    //const user2 = users.find((user) => user.id === id) //правильный пример
-    //const user3 = users.find(user => condition(user))
-    return user;
+    // const condition = (u: CreateUserDto) => u.id === id; // лямда функция с условием для поиска
+    return new Promise((resolve, reject) => {
+      const user = users.find((user) => user.id === id);
+      if (!user) {
+        reject(new NotFoundException(`user not found!, ${id}`));
+      }
+      resolve(user);
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
