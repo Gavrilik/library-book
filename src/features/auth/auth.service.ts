@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-
+import { JwtService } from '@nestjs/jwt';
+// библиотека которая снабжает sign() функция для создания JWT
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userService.findByEmail(email);
@@ -12,5 +16,12 @@ export class AuthService {
       return result;
     }
     return null;
+  }
+
+  async login(user: any) {
+    const payload = { user: user, sub: user.email };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }
