@@ -36,13 +36,16 @@ export class UserController {
 
   @Put(':id')
   @UseGuards(AuthGuard('local'))
-  update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('id') id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<any> {
     return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('local'))
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: number): Promise<any> {
     return this.userService.remove(+id);
   }
 }

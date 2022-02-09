@@ -17,15 +17,15 @@ export class UserService {
     return this.userJsonRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: number, updateUserDto: UpdateUserDto): Promise<any> {
     return this.userJsonRepository.update(+id, updateUserDto);
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<any> {
     return this.userJsonRepository.remove(id);
   }
 
-  findByEmail(email: string) {
+  findByEmail(email: string): Promise<any> {
     return this.userJsonRepository.findByEmail(email);
   }
 }

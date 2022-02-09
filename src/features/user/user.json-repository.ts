@@ -27,7 +27,6 @@ export class UserJsonRepository {
   }
 
   findOne(id: number) {
-    // const condition = (u: CreateUserDto) => u.id === id; // лямда функция с условием для поиска
     return new Promise((resolve, reject) => {
       const user = users.find((user) => user.id === id);
       if (!user) {
@@ -38,24 +37,29 @@ export class UserJsonRepository {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    //...(оператор spread ипользуется для слияние объектов)
-    this.findOne(id);
-    users = users.map((user) => {
-      if (user.id === id) {
-        return { ...user, ...updateUserDto };
-      }
-      return user;
+    return new Promise((resolve, reject) => {
+      reject(this.findOne(id));
+      users.map((user) => {
+        if (user.id === id) {
+          resolve({ ...user, ...updateUserDto });
+        }
+        resolve(user);
+      });
     });
   }
 
   remove(id: number) {
-    this.findOne(id); // проверка на наличие пользователя
-    const condition = (user) => user.id !== id; // условие для операции filter
-    const filteredUsers = users.filter(condition);
-    return (users = filteredUsers);
+    return new Promise((resolve, reject) => {
+      this.findOne(id);
+      const condition = (user) => user.id !== id;
+      const filteredUsers = users.filter(condition);
+      resolve((users = filteredUsers));
+    });
   }
 
   findByEmail(email: string) {
-    return users.find((user) => user.email === email);
+    return new Promise((resolve, reject) => {
+      resolve(users.find((user) => user.email === email));
+    });
   }
 }
