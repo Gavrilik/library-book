@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { Connection } from 'typeorm';
 import { UserModule } from './features/user/user.module';
 import { BookModule } from './features/book/book.module';
 import { AuthModule } from './features/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Book } from './features/book/entities/book.entity';
+import { User } from './features/user/entities/user.entity';
 //import { User } from './features/user/entities/user.entity';
 
 @Module({
@@ -15,7 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'postgres',
       password: 'oleg6205854',
       database: 'postgres',
-      entities: ['src/entity/**/*.ts'],
+      entities: [Book, User],
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -24,6 +25,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     AuthModule,
   ],
 })
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}
