@@ -28,16 +28,16 @@ export class BookController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<any> {
+  findOne(@Param('id') id: number): Promise<any> {
     return this.bookServise.findOne(+id);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateBookDto: UpdateBookDto,
-  ): Promise<void> {
+  ): Promise<any> {
     return this.bookServise.update(+id, updateBookDto);
   }
 

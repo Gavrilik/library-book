@@ -1,4 +1,4 @@
-import { CreateBookDto } from './dto/create-book.dto';
+/*import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import defaulteBooks from './book.json'; //массив, работа с массивом
 let books = defaulteBooks;
@@ -62,3 +62,4 @@ export class BookJsonRepository {
     });
   }
 }
+*/
