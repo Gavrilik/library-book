@@ -19,16 +19,16 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(id: number): Promise<User> {
+  findOne(id: string): Promise<User> {
     return this.userRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     return this.userRepository.save(updateUserDto);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.userRepository.delete(id);
+  remove(id: string): Promise<any> {
+    return this.userRepository.delete(id);
   }
 
   findByEmail(email: string): Promise<User> {

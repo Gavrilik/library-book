@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from './entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -19,33 +20,33 @@ export class UserController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  create(@Body() createUserDto: CreateUserDto): Promise<any> {
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
     //console.log('createUserDto', createUserDto); //вывод в консоль createUserDto
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll(): Promise<any> {
+  findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<any> {
-    return this.userService.findOne(+id);
+  findOne(@Param('id') id: string): Promise<User> {
+    return this.userService.findOne(id);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<any> {
-    return this.userService.update(+id, updateUserDto);
+  ): Promise<User> {
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  remove(@Param('id') id: number): Promise<any> {
-    return this.userService.remove(+id);
+  remove(@Param('id') id: string): Promise<any> {
+    return this.userService.remove(id);
   }
 }

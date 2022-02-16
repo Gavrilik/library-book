@@ -5,7 +5,6 @@ import { AuthModule } from './features/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './features/book/entities/book.entity';
 import { User } from './features/user/entities/user.entity';
-//import { User } from './features/user/entities/user.entity';
 
 @Module({
   imports: [
