@@ -15,7 +15,7 @@ import { SharedModule } from './shared/shared.module';
       port: 5432,
       username: 'postgres',
       password: 'oleg6205854',
-      database: 'postgres',
+      database: 'library',
       entities: [Book, User],
       synchronize: true,
       autoLoadEntities: true,

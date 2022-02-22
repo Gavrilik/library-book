@@ -1,7 +1,6 @@
 import { Entity, Column, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-@Index(['email', 'phoneNumber'], { unique: true })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,9 +11,11 @@ export class User {
   @Column()
   surname: string;
 
+  @Index({ unique: true })
   @Column({ nullable: false })
   email: string;
 
+  @Index({ unique: true })
   @Column()
   phoneNumber: number;
 
