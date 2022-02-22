@@ -1,31 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserJsonRepository } from './user.json-repository';
+import { User } from './entities/user.entity';
+import { CryptoService } from 'src/shared/service/crypto.service';
 @Injectable()
 export class UserService {
-  constructor(private readonly userJsonRepository: UserJsonRepository) {}
-  create(createUserDto: CreateUserDto) {
-    return this.userJsonRepository.create(createUserDto); //результат вызова userJsonRepository
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    private readonly cryptoService: CryptoService,
+  ) {}
+
+  create(createUserDto: CreateUserDto): Promise<User> {
+    const user = {
+      ...createUserDto,
+      password: this.cryptoService.generate(createUserDto.password),
+    };
+    return this.userRepository.save(user); //результат вызова userJsonRepository
   }
 
-  findAll() {
-    return this.userJsonRepository.findAll();
+  findAll(): Promise<User[]> {
+    return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return this.userJsonRepository.findOne(id);
+  findOne(id: number): Promise<User> {
+    return this.userRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userJsonRepository.update(+id, updateUserDto);
+  update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    return this.userRepository.save(updateUserDto);
   }
 
-  remove(id: number) {
-    return this.userJsonRepository.remove(id);
+  remove(id: number): Promise<any> {
+    return this.userRepository.delete(id);
   }
 
-  findByEmail(email: string) {
-    return this.userJsonRepository.findByEmail(email);
+  findByEmailAndPass(email: string, password: string): Promise<User> {
+    return this.userRepository.findOne({ where: { email, password } }); //поиск по поролю
   }
 }
