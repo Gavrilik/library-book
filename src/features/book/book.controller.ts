@@ -30,7 +30,7 @@ export class BookController {
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Book> {
-    return this.bookServise.findOne(id);
+    return this.bookServise.findOne(+id);
   }
 
   @Put(':id')
@@ -39,12 +39,12 @@ export class BookController {
     @Param('id') id: string,
     @Body() updateBookDto: UpdateBookDto,
   ): Promise<Book> {
-    return this.bookServise.update(id, updateBookDto);
+    return this.bookServise.update(+id, updateBookDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  async remove(@Param('id') id: string): Promise<any> {
-    await this.bookServise.remove(id);
+  remove(@Param('id') id: string): Promise<any> {
+    return this.bookServise.remove(+id);
   }
 }

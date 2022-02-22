@@ -4,34 +4,40 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-
+import { CryptoService } from 'src/shared/service/crypto.service';
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly cryptoService: CryptoService,
   ) {}
+
   create(createUserDto: CreateUserDto): Promise<User> {
-    return this.userRepository.save(createUserDto); //результат вызова userJsonRepository
+    const user = {
+      ...createUserDto,
+      password: this.cryptoService.generate(createUserDto.password),
+    };
+    return this.userRepository.save(user); //результат вызова userJsonRepository
   }
 
   findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
+  findOne(id: number): Promise<User> {
     return this.userRepository.findOne(id);
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     return this.userRepository.save(updateUserDto);
   }
 
-  remove(id: string): Promise<any> {
+  remove(id: number): Promise<any> {
     return this.userRepository.delete(id);
   }
 
-  findByEmail(email: string): Promise<User> {
-    return this.userRepository.findOne(email);
+  findByEmailAndPass(email: string, password: string): Promise<User> {
+    return this.userRepository.findOne({ where: { email, password } }); //поиск по поролю
   }
 }

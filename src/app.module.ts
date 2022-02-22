@@ -5,6 +5,7 @@ import { AuthModule } from './features/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './features/book/entities/book.entity';
 import { User } from './features/user/entities/user.entity';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { User } from './features/user/entities/user.entity';
     UserModule,
     BookModule,
     AuthModule,
+    SharedModule,
   ],
 })
 export class AppModule {}

@@ -20,15 +20,15 @@ export class BookService {
     return this.bookRepository.find();
   }
 
-  findOne(id: string): Promise<Book> {
+  findOne(id: number): Promise<Book> {
     return this.bookRepository.findOne(id);
   }
 
-  update(id: string, updateBookDto: UpdateBookDto): Promise<Book> {
+  update(id: number, updateBookDto: UpdateBookDto): Promise<Book> {
     return this.bookRepository.save(updateBookDto);
   }
 
-  remove(id: string): Promise<any> {
+  remove(id: number): Promise<any> {
     return this.bookRepository.delete(id);
   }
 }

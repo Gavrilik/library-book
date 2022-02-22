@@ -11,7 +11,7 @@ export class User {
   @Column()
   surname: string;
 
-  @Column()
+  @Column({ nullable: false })
   email: string;
 
   @Column()
@@ -20,6 +20,6 @@ export class User {
   @Column()
   age: number;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 }
