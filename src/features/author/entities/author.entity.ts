@@ -18,6 +18,6 @@ export class Author {
   @Column()
   genre: string;
 
-  @OneToMany(() => Book, (book) => book.author)
-  book: Book[];
+  @OneToMany(() => Book, (book) => book.author, { cascade: true })
+  books: Book[];
 }

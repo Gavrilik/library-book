@@ -10,11 +10,8 @@ export class Book {
   title: string;
 
   @Column()
-  authorBook: string;
-
-  @Column()
   tags: string;
 
-  @ManyToOne(() => Author, (author) => author.book)
-  author: Author[];
+  @ManyToOne(() => Author, (author) => author.books, { onDelete: 'SET NULL' })
+  author: Author;
 }
