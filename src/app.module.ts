@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './features/book/entities/book.entity';
 import { User } from './features/user/entities/user.entity';
 import { SharedModule } from './shared/shared.module';
+import { AuthorModule } from './features/author/author.module';
+import { Author } from './features/author/entities/author.entity';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { SharedModule } from './shared/shared.module';
       username: 'postgres',
       password: 'oleg6205854',
       database: 'library',
-      entities: [Book, User],
+      entities: [Book, User, Author],
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -24,6 +26,7 @@ import { SharedModule } from './shared/shared.module';
     BookModule,
     AuthModule,
     SharedModule,
+    AuthorModule,
   ],
 })
 export class AppModule {}

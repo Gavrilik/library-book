@@ -4,7 +4,7 @@ export class CreateBookDto {
   @IsString()
   title: string;
   @IsString()
-  author: string;
+  authorBook: string;
   @IsString()
   tags: string;
 }
