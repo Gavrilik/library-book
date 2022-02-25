@@ -8,13 +8,14 @@ import { User } from './features/user/entities/user.entity';
 import { SharedModule } from './shared/shared.module';
 import { AuthorModule } from './features/author/author.module';
 import { Author } from './features/author/entities/author.entity';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './features/configuration';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
       username: 'postgres',
       password: 'oleg6205854',
       database: 'library',
@@ -22,6 +23,7 @@ import { Author } from './features/author/entities/author.entity';
       synchronize: true,
       autoLoadEntities: true,
     }),
+
     UserModule,
     BookModule,
     AuthModule,
