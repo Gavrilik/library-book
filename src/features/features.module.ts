@@ -4,7 +4,6 @@ import { AuthorModule } from './author/author.module';
 import { BookModule } from './book/book.module';
 import { UserModule } from './user/user.module';
 
-@Global()
 @Module({
   imports: [UserModule, BookModule, AuthModule, AuthorModule],
 })
