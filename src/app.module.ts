@@ -8,27 +8,31 @@ import { User } from './features/user/entities/user.entity';
 import { SharedModule } from './shared/shared.module';
 import { AuthorModule } from './features/author/author.module';
 import { Author } from './features/author/entities/author.entity';
-import { ConfigModule } from '@nestjs/config';
-import configuration from './features/configuration';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      username: 'postgres',
-      password: 'oleg6205854',
-      database: 'library',
-      entities: [Book, User, Author],
-      synchronize: true,
-      autoLoadEntities: true,
-    }),
-
     UserModule,
     BookModule,
     AuthModule,
     SharedModule,
     AuthorModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        type: config.get<'aurora-data-api'>('TYPEORM_CONNECTION'),
+        username: config.get<string>('TYPEORM_USERNAME'),
+        password: config.get<string>('TYPEORM_PASSWORD'),
+        database: config.get<string>('TYPEORM_DATABASE'),
+        port: config.get<number>('TYPEORM_PORT'),
+        entities: [Book, User, Author],
+        synchronize: true,
+        autoLoadEntities: true,
+        logging: true, // поч
+      }),
+    }),
   ],
 })
 export class AppModule {}

@@ -1,5 +1,11 @@
 import { Author } from 'src/features/author/entities/author.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Book {
@@ -12,6 +18,13 @@ export class Book {
   @Column()
   tags: string;
 
-  @ManyToOne(() => Author, (author) => author.books, { onDelete: 'SET NULL' })
+  @Column({ default: 0 })
+  count: number;
+
+  @ManyToOne(() => Author, (author) => author.books, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
+  @JoinColumn()
   author: Author;
 }

@@ -1,5 +1,12 @@
 import { Book } from 'src/features/book/entities/book.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Author {
@@ -18,6 +25,6 @@ export class Author {
   @Column()
   genre: string;
 
-  @OneToMany(() => Book, (book) => book.author, { cascade: true })
+  @OneToMany(() => Book, (book) => book.author)
   books: Book[];
 }

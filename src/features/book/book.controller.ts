@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -38,13 +39,13 @@ export class BookController {
   update(
     @Param('id') id: string,
     @Body() updateBookDto: UpdateBookDto,
-  ): Promise<Book> {
+  ): Promise<UpdateResult> {
     return this.bookServise.update(+id, updateBookDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  remove(@Param('id') id: string): Promise<any> {
+  remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.bookServise.remove(+id);
   }
 }
