@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
 import { Author } from './entities/author.entity';
@@ -24,11 +24,11 @@ export class AuthorService {
     return this.authorRepository.findOne({ id }, { relations: ['books'] });
   }
 
-  update(id: number, updateAuthorDto: UpdateAuthorDto): Promise<Author> {
-    return this.authorRepository.save(updateAuthorDto);
+  update(id: number, updateAuthorDto: UpdateAuthorDto): Promise<UpdateResult> {
+    return this.authorRepository.update(id, updateAuthorDto);
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<DeleteResult> {
     return this.authorRepository.delete(id);
   }
 }

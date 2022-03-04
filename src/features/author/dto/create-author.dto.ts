@@ -7,6 +7,4 @@ export class CreateAuthorDto {
   surname: string;
   @IsInt()
   dateOfBirth: number;
-  @IsString()
-  genre: string;
 }
