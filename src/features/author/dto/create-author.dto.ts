@@ -1,4 +1,4 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsNumber, IsString } from 'class-validator';
 
 export class CreateAuthorDto {
   @IsString()
@@ -7,4 +7,6 @@ export class CreateAuthorDto {
   surname: string;
   @IsInt()
   dateOfBirth: number;
+  @IsNumber()
+  genreId: number;
 }

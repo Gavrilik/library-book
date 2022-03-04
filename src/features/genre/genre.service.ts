@@ -16,7 +16,7 @@ export class GenreService {
   }
 
   findAll(): Promise<Genre[]> {
-    return this.genreRepository.find();
+    return this.genreRepository.find({ relations: ['authors'] });
   }
 
   findOne(id: number): Promise<Genre> {

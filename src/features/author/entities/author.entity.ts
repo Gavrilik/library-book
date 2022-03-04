@@ -30,5 +30,3 @@ export class Author {
   @JoinTable()
   genres: Genre[];
 }
-
-//manyto many

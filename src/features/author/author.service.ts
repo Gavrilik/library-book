@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { GenreService } from '../genre/genre.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
 import { Author } from './entities/author.entity';
@@ -10,18 +11,23 @@ export class AuthorService {
   constructor(
     @InjectRepository(Author)
     private readonly authorRepository: Repository<Author>,
+    private readonly genreServise: GenreService,
   ) {}
 
   create(createAuthorDto: CreateAuthorDto): Promise<Author> {
-    return this.authorRepository.save(createAuthorDto);
+    return this.genreServise.findOne(createAuthorDto.genreId).then((genre) => {
+      const { genreId, ...rest } = createAuthorDto;
+      const author = { ...rest, genre };
+      return this.authorRepository.save(author);
+    });
   }
 
   findAll(): Promise<Author[]> {
-    return this.authorRepository.find();
+    return this.authorRepository.find({ relations: ['books'] });
   }
 
   findOne(id: number): Promise<Author> {
-    return this.authorRepository.findOne({ id }, { relations: ['books'] });
+    return this.authorRepository.findOne({ id }, { relations: ['genres'] });
   }
 
   update(id: number, updateAuthorDto: UpdateAuthorDto): Promise<UpdateResult> {
