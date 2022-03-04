@@ -21,7 +21,7 @@ export class AuthorService {
   }
 
   findOne(id: number): Promise<Author> {
-    return this.authorRepository.findOne(id);
+    return this.authorRepository.findOne({ id }, { relations: ['books'] });
   }
 
   update(id: number, updateAuthorDto: UpdateAuthorDto): Promise<Author> {

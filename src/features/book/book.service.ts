@@ -27,15 +27,16 @@ export class BookService {
   }
 
   findAll(): Promise<Book[]> {
-    return this.bookRepository.find(); // возвращаем все найденые эл массива.
+    return this.bookRepository.find({ relations: ['author'] }); // возвращаем все найденые эл массива.
   }
 
   findOne(id: number): Promise<Book> {
-    return this.bookRepository.findOne(id).then((book) => {
-      //возвращаем найденую по ид книгу
-      book.count++; // добавление еденицы к счётчику
-      return this.update(id, book).then(() => book); // возвращаем  обновленную book
-    });
+    return this.bookRepository
+      .findOne({ id }, { relations: ['author'] })
+      .then((book) => {
+        book.count++;
+        return this.update(id, book).then(() => book);
+      });
   }
 
   update(id: number, updateBookDto: UpdateBookDto): Promise<UpdateResult> {
