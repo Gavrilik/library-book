@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Author } from 'src/features/author/entities/author.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Genre {
@@ -7,4 +8,7 @@ export class Genre {
 
   @Column()
   genre: string;
+
+  @ManyToMany(() => Author, (author) => author.genres)
+  authors: Author[];
 }
