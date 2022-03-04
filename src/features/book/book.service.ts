@@ -32,6 +32,7 @@ export class BookService {
 
   findOne(id: number): Promise<Book> {
     return this.bookRepository.findOne(id).then((book) => {
+      //создать вывод книги и автора
       //возвращаем найденую по ид книгу
       book.count++; // добавление еденицы к счётчику
       return this.update(id, book).then(() => book); // возвращаем  обновленную book
