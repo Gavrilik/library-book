@@ -27,7 +27,7 @@ export class BookService {
   }
 
   findAll(): Promise<Book[]> {
-    return this.bookRepository.find(); // возвращаем все найденые эл массива.
+    return this.bookRepository.find({ relations: ['author'] }); // возвращаем все найденые эл массива.
   }
 
   findOne(id: number): Promise<Book> {
