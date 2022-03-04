@@ -7,11 +7,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
+    SharedModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '600000000s' },

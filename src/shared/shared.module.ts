@@ -1,8 +1,9 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { DatabaseModule } from './database.module';
 import { CryptoService } from './service/crypto.service';
 
-@Global()
 @Module({
+  imports: [DatabaseModule],
   providers: [CryptoService],
   exports: [CryptoService],
 })
