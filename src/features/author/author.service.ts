@@ -11,15 +11,17 @@ export class AuthorService {
   constructor(
     @InjectRepository(Author)
     private readonly authorRepository: Repository<Author>,
-    private readonly genreServise: GenreService,
+    private genreServise: GenreService,
   ) {}
 
   create(createAuthorDto: CreateAuthorDto): Promise<Author> {
-    return this.genreServise.findOne(createAuthorDto.genreId).then((genre) => {
-      const { genreId, ...rest } = createAuthorDto;
-      const author = { ...rest, genre };
-      return this.authorRepository.save(author);
-    });
+    return this.genreServise
+      .findByIds(createAuthorDto.genreIds)
+      .then((genres) => {
+        const { genreIds, ...rest } = createAuthorDto;
+        const author = { ...rest, genres };
+        return this.authorRepository.save(author);
+      });
   }
 
   findAll(): Promise<Author[]> {
@@ -36,5 +38,9 @@ export class AuthorService {
 
   remove(id: number): Promise<DeleteResult> {
     return this.authorRepository.delete(id);
+  }
+
+  findByIds(authorIds: number[]): Promise<Author[]> {
+    return this.authorRepository.findByIds(authorIds);
   }
 }

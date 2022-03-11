@@ -26,7 +26,9 @@ export class Author {
   @OneToMany(() => Book, (book) => book.author)
   books: Book[];
 
-  @ManyToMany(() => Genre, (genre) => genre.authors)
-  @JoinTable()
+  @ManyToMany(() => Genre, (genre) => genre.authors, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   genres: Genre[];
 }

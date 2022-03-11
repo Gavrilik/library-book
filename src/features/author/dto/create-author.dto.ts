@@ -7,6 +7,6 @@ export class CreateAuthorDto {
   surname: string;
   @IsInt()
   dateOfBirth: number;
-  @IsNumber()
-  genreId: number;
+  @IsNumber({}, { each: true })
+  genreIds: number[];
 }
