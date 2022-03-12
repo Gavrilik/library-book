@@ -9,7 +9,7 @@ import { Genre } from './entities/genre.entity';
 @Injectable() //что бы класс стал провайдером
 export class GenreService {
   constructor(
-    @InjectRepository(Genre)
+    @InjectRepository(Genre) //внедрение 1 репозитории!
     private readonly genreRepository: Repository<Genre>,
     @InjectRepository(Author)
     private readonly authorRepository: Repository<Author>,
