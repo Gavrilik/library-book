@@ -14,3 +14,5 @@ export class CreateUserDto {
   @IsString()
   password: string;
 }
+
+//favoriteBooks

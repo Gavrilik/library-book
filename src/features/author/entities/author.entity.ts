@@ -1,9 +1,10 @@
 import { Book } from 'src/features/book/entities/book.entity';
+import { Genre } from 'src/features/genre/entities/genre.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
   JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -22,9 +23,12 @@ export class Author {
   @Column()
   dateOfBirth: number;
 
-  @Column()
-  genre: string;
-
   @OneToMany(() => Book, (book) => book.author)
   books: Book[];
+
+  @ManyToMany(() => Genre, (genre) => genre.authors, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
+  genres: Genre[];
 }
