@@ -13,8 +13,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entity';
+import { DeleteResult } from 'typeorm';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -44,8 +45,12 @@ export class UserController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  remove(@Param('id') id: string): Promise<any> {
+  remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.userService.remove(+id);
   }
+
+  @Get(/*favorite*/)
+  favorite(@Body() CreateUserDto: CreateUserDto): Promise<User> {
+    return this.userService.favorite(CreateUserDto);
+  }
 }
-//1

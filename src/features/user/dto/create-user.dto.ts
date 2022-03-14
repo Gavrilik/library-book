@@ -13,6 +13,6 @@ export class CreateUserDto {
   age: number;
   @IsString()
   password: string;
-  @IsNumber()
-  userBooks: number;
+  @IsNumber({}, { each: true })
+  userBooks: number[];
 }

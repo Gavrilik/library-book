@@ -3,7 +3,6 @@ import { Genre } from 'src/features/genre/entities/genre.entity';
 import {
   Column,
   Entity,
-  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,

@@ -1,4 +1,5 @@
 import { Author } from 'src/features/author/entities/author.entity';
+import { User } from 'src/features/user/entities/user.entity';
 import {
   Column,
   Entity,
@@ -27,4 +28,7 @@ export class Book {
   })
   @JoinColumn()
   author: Author;
+
+  @ManyToOne(() => User, (user) => user.books)
+  user: User;
 }

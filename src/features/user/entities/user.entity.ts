@@ -1,4 +1,11 @@
-import { Entity, Column, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Book } from 'src/features/book/entities/book.entity';
+import {
+  Entity,
+  Column,
+  Index,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -24,4 +31,7 @@ export class User {
 
   @Column({ nullable: false })
   password: string;
+
+  @OneToMany(() => Book, (book) => book.user)
+  books: Book[];
 }
