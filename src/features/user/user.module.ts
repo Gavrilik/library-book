@@ -8,7 +8,6 @@ import { BookModule } from '../book/book.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), SharedModule, BookModule],
-  // метод, что бы определить какие репозитории зарегистрированы в текущей области.
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService, TypeOrmModule],

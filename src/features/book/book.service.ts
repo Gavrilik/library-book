@@ -47,7 +47,7 @@ export class BookService {
     return this.bookRepository.delete(id); // удаляет объект с бд
   }
 
-  findByIds(userBooks: number[]): Promise<Book[]> {
-    return this.bookRepository.findByIds(userBooks);
+  findByIds(bookIds: number[]): Promise<Book[]> {
+    return this.bookRepository.findByIds(bookIds);
   }
 }

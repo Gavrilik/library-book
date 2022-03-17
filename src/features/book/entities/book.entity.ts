@@ -4,6 +4,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -29,6 +30,9 @@ export class Book {
   @JoinColumn()
   author: Author;
 
-  @ManyToOne(() => User, (user) => user.books)
-  user: User;
+  @ManyToMany(() => Book, (book) => book.users, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
+  users: User[];
 }

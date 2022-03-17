@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { CryptoService } from 'src/shared/service/crypto.service';
 import { BookService } from '../book/book.service';
+import { CreateFavoriteDto } from './dto/create-favorite.dto';
 @Injectable()
 export class UserService {
   constructor(
@@ -43,11 +44,17 @@ export class UserService {
     return this.userRepository.findOne({ where: { email, password } }); //поиск по поролю
   }
 
-  favorite(createUserDto: CreateUserDto): Promise<User> {
-    return this.bookService.findByIds(createUserDto.userBooks).then((books) => {
-      const { userBooks, ...rest } = createUserDto;
-      const user = { ...rest, books };
-      return this.userRepository.save(user);
-    });
+  findByIds(userIds: number[]): Promise<User[]> {
+    return this.userRepository.findByIds(userIds);
+  }
+
+  setFavorite(createFavoriteDto: CreateFavoriteDto): Promise<User> {
+    return this.bookService
+      .findByIds(createFavoriteDto.bookIds)
+      .then((books) => {
+        const { bookIds, ...rest } = createFavoriteDto;
+        const user = { ...rest, books };
+        return this.userRepository.preload(user);
+      });
   }
 }

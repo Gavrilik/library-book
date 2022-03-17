@@ -4,7 +4,8 @@ import {
   Column,
   Index,
   PrimaryGeneratedColumn,
-  OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -32,6 +33,7 @@ export class User {
   @Column({ nullable: false })
   password: string;
 
-  @OneToMany(() => Book, (book) => book.user)
+  @ManyToMany(() => Book, (book) => book.users)
+  @JoinTable()
   books: Book[];
 }
