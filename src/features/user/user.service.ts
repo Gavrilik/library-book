@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -48,13 +48,14 @@ export class UserService {
     return this.userRepository.findByIds(userIds);
   }
 
-  setFavorite(createFavoriteDto: CreateFavoriteDto): Promise<User> {
+  setFavorite(
+    id: number,
+    createFavoriteDto: CreateFavoriteDto,
+  ): Promise<UpdateResult> {
     return this.bookService
       .findByIds(createFavoriteDto.bookIds)
       .then((books) => {
-        const { bookIds, ...rest } = createFavoriteDto;
-        const user = { ...rest, books };
-        return this.userRepository.preload(user);
+        return this.userRepository.update(id, { books });
       });
   }
 }

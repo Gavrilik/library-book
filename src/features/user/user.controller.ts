@@ -14,7 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entity';
-import { DeleteResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { Book } from '../book/entities/book.entity';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 
@@ -29,8 +29,12 @@ export class UserController {
 
   @Post('favorite')
   @UseGuards(AuthGuard('jwt'))
-  setFavorite(@Body() createFavoriteDto: CreateFavoriteDto): Promise<User> {
-    return this.userService.setFavorite(createFavoriteDto);
+  setFavorite(
+    @Request() req,
+    @Body() createFavoriteDto: CreateFavoriteDto,
+  ): Promise<UpdateResult> {
+    const id = req.user.user.id;
+    return this.userService.setFavorite(id, createFavoriteDto);
   }
 
   @Get()
