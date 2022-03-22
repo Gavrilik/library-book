@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  RelationId,
 } from 'typeorm';
 
 @Entity()

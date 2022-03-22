@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import { CryptoService } from 'src/shared/service/crypto.service';
 import { BookService } from '../book/book.service';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
+import { Book } from '../book/entities/book.entity';
 @Injectable()
 export class UserService {
   constructor(
@@ -48,14 +49,18 @@ export class UserService {
     return this.userRepository.findByIds(userIds);
   }
 
-  setFavorite(
-    id: number,
+  setFavoriteBooks(
+    userId: number,
     createFavoriteDto: CreateFavoriteDto,
-  ): Promise<UpdateResult> {
+  ): Promise<Book[]> {
     return this.bookService
       .findByIds(createFavoriteDto.bookIds)
       .then((books) => {
-        return this.userRepository.update(id, { books });
+        return this.userRepository.findOne(userId).then((user) => {
+          return this.userRepository
+            .save({ ...user, books })
+            .then((user) => user.books);
+        });
       });
   }
 }
