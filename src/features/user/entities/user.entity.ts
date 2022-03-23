@@ -1,4 +1,13 @@
-import { Entity, Column, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Book } from 'src/features/book/entities/book.entity';
+import {
+  Entity,
+  Column,
+  Index,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+  RelationId,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -24,4 +33,8 @@ export class User {
 
   @Column({ nullable: false })
   password: string;
+
+  @ManyToMany(() => Book, (book) => book.users)
+  @JoinTable()
+  books: Book[];
 }

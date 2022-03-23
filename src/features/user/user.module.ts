@@ -4,10 +4,10 @@ import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { SharedModule } from 'src/shared/shared.module';
+import { BookModule } from '../book/book.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), SharedModule],
-  // метод, что бы определить какие репозитории зарегистрированы в текущей области.
+  imports: [TypeOrmModule.forFeature([User]), SharedModule, BookModule],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService, TypeOrmModule],

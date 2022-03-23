@@ -1,8 +1,11 @@
 import { Author } from 'src/features/author/entities/author.entity';
+import { User } from 'src/features/user/entities/user.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -27,4 +30,10 @@ export class Book {
   })
   @JoinColumn()
   author: Author;
+
+  @ManyToMany(() => Book, (book) => book.users, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
+  users: User[];
 }

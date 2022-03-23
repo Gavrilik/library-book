@@ -9,4 +9,7 @@ export class CreateBookDto {
 
   @IsNumber()
   authorId: number;
+
+  @IsNumber({}, { each: true })
+  userIds: number[];
 }

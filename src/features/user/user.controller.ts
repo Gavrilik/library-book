@@ -7,12 +7,16 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entity';
+import { DeleteResult } from 'typeorm';
+import { Book } from '../book/entities/book.entity';
+import { CreateFavoriteDto } from './dto/create-favorite.dto';
 
 @Controller('user')
 export class UserController {
@@ -23,9 +27,26 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @Post('favorite')
+  @UseGuards(AuthGuard('jwt'))
+  setFavoriteBooks(
+    @Request() req,
+    @Body() createFavoriteDto: CreateFavoriteDto,
+  ): Promise<Book[]> {
+    const userId = req.user.user.id;
+    return this.userService.setFavoriteBooks(userId, createFavoriteDto);
+  }
+
   @Get()
   findAll(): Promise<User[]> {
     return this.userService.findAll();
+  }
+
+  @Get('favorite')
+  @UseGuards(AuthGuard('jwt'))
+  getFavoriteBooks(@Request() req): Promise<Book[]> {
+    const id = req.user.user.id;
+    return this.userService.findOne(id).then((user) => user.books);
   }
 
   @Get(':id')
@@ -44,8 +65,7 @@ export class UserController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  remove(@Param('id') id: string): Promise<any> {
+  remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.userService.remove(+id);
   }
 }
-//1
